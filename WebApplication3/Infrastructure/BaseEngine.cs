@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Autofac;
+using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -48,15 +49,15 @@ namespace WebApplication3.Infrastructure
 
         }
 
-        public T Resolve<T>(string name = null) where T : class => (T)this.Resolve(typeof(T), name);
+        public T Resolve<T>(string name = null, params Parameter[] parameters) where T : class => (T)this.Resolve(typeof(T), name);
 
        
-        public object Resolve(Type type, string name = null)
+        public object Resolve(Type type, string name = null, params Parameter[] parameters)
         {
             IServiceProvider serviceProvider = this.GetServiceProvider();
             if (serviceProvider == null)
                 return (object)null;
-            return !string.IsNullOrEmpty(name) ? serviceProvider.GetAutofacRoot().ResolveNamed(name, type) : serviceProvider.GetService(type);
+            return !string.IsNullOrEmpty(name) ? serviceProvider.GetAutofacRoot().ResolveNamed(name, type,parameters) : serviceProvider.GetService(type);
         }
         /// <summary>
         /// Resolve dependencies

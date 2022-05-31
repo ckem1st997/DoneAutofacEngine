@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Autofac;
+using Autofac.Core;
+using Microsoft.AspNetCore.Mvc;
 using WebApplication3.Infrastructure;
 
 namespace WebApplication3.Controllers
@@ -26,7 +28,8 @@ namespace WebApplication3.Controllers
             return Ok(new
             {
                 class1 = res.GetString(),
-                class2 = res1.GetString()
+                class2 = res1.GetString(),
+                class3 = res.GetString(d)
 
             });
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Autofac.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,9 +25,9 @@ namespace WebApplication3.Infrastructure
         /// <param name="scope">Scope</param>
         /// <typeparam name="T">Type of resolved service</typeparam>
         /// <returns>Resolved service</returns>
-        T Resolve<T>(string name = null) where T : class;
+        T Resolve<T>(string name = null, params Parameter[] parameters) where T : class;
 
-        object Resolve(Type type, string name = null);
+        object Resolve(Type type, string name = null, params Parameter[] parameters);
 
         /// <summary>
         /// Resolve dependencies
